@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+// import logo from './logo.svg'; 
+import react,{useState} from 'react'; 
 import './App.css';
-
+import Parent from './Parent';
+import CounterContext from './CounterContext';
 function App() {
+  let countState = useState(1);
+  // let [count, setCount] = useState(25);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    // if we want to use the default value of the 
+    // context then we dont wrap the component
+
+    // this is wrapping
+    <CounterContext.Provider value={countState}> 
+    
+    <div >
+      <Parent />
     </div>
+    </CounterContext.Provider>
   );
 }
 
