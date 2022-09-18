@@ -16,5 +16,5 @@ jobs:
         run: npm install -g surge
       - name: Run surge
         #run: surge ./ bootcamp_setup_ziakhan.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-        run: surge ./ aabis_session5.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: surge ./build aabis_session5.surge.sh --token ${{ secrets.SURGE_TOKEN }}
       
