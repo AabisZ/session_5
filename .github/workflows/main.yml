@@ -1,12 +1,13 @@
-# This is a basic workflow to help you get started with Actions
 
-name: firstproject001
+name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,15 +24,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: installing node
+      - name: Setup Node.js environment
         uses: actions/setup-node@v2-beta
         with:
-         node-version: 16
-
-      # Runs a set of commands using the runners shell
-      - name: installing surge
-        run: npm install --global surge
-      - name: deploying using surge
-        run: surge ./build aabis_session5.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-      
+          version: 12
+      - name: GitHub Action for Yarn
+          # You may pin to the exact commit or the version.
+          # uses: Borales/actions-yarn@fdf0082f8938ca4193f000342661784eb8e11f6a
+        uses: Borales/actions-yarn@v3
+        with:
+          # Yarn command
+          cmd: install
+      - name: creating yarn build
+        run: yarn build
+          
+      - name: installing srge
+        run: npm install -g surge
+        
+      - name: deploying on surge
+        run: surge ./build aabis_session5.surge.sh/ --token${{secrets.SURGE_TOKEN}}
